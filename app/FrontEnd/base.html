@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	  <meta charset="UTF-8">
+       {% if title %}
+       <title>{{ title }} - Tutor Manager</title>
+       {% else %}
+       <title>Tutor Manager</title>
+       {% endif %}
+      {% block head %} {% endblock %}
+      
+    </head>
+
+    {% block content %}{% endblock %}
+
+       {% with messages = get_flashed_messages() %}
+         {% if messages %}
+            <div class="center">
+               {% for message in messages %}
+                  <p class="ErrorMessage">{{ message }}</p>
+              {% endfor %}
+            </div>
+         {% endif %}
+       {% endwith %} 
+
+    </body>
+</html>
