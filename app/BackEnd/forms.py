@@ -10,18 +10,18 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
-class StudentForm(FlaskForm):
+#class StudentForm(FlaskForm):
 
-class EmployeeForm(FlaskForm):
+#class EmployeeForm(FlaskForm):
 
-class AssignmentForm(FlaskForm):
+#class AssignmentForm(FlaskForm):
 
-class WorksheetForm(FlaskForm):
+#class WorksheetForm(FlaskForm):
 
-class AttendanceForm(FlaskForm):
+#class AttendanceForm(FlaskForm):
 
-class SubjectForm(FlaskForm):
+#class SubjectForm(FlaskForm):
 
-class RegisterForm(FlaskForm):
+#class RegisterForm(FlaskForm):
 
-class ParentForm(FlaskForm):
+#class ParentForm(FlaskForm):

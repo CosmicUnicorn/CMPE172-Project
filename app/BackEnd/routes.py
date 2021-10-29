@@ -1,9 +1,9 @@
 from flask import render_template, redirect, flash, request
-from ../Scripts/__init__ import flaskApp, login
-from .forms import LoginForm, RegisterForm
+from __init__ import flaskApp, login
+from .forms import LoginForm
 from flask_login import current_user, login_required, logout_user, login_user
 
-@app.route('/login', methods=['GET', 'POST'])
+@flaskApp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect("/home")
