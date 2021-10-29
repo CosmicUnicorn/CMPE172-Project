@@ -8,4 +8,4 @@ flaskApp.config.from_object(Config)
 login = LoginManager(flaskApp)
 login.login_view = "login"
 
-from BackEnd import routes
+from BackEnd import routes, model

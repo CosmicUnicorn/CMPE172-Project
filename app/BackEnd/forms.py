@@ -22,6 +22,17 @@ class LoginForm(FlaskForm):
 
 #class SubjectForm(FlaskForm):
 
-#class RegisterForm(FlaskForm):
-
 #class ParentForm(FlaskForm):
+
+class RegisterForm(FlaskForm):
+    username = StringField("Username",validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired(),EqualTo('confirmPassword', message = "Passwords Don't Match!")])
+    confirmPassword = PasswordField('Confirm Password', validators=[DataRequired()])
+    submit = SubmitField('Register Account')
+
+    #def validate_username(self, username):
+        #check if user already exists
+        #if user is not None:
+            #flash("Username is taken.")
+            #raise ValidationError('Username is taken.')
+

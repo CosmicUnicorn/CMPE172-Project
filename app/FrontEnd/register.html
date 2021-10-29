@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+ 
+{% block content %}
+
+{% if not get_flashed_messages() %}
+<div class="center Forms">
+{% else %}
+<div class="center FormsError">
+{% endif %}
+    <h1>Register</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}
+        </p>
+        <p>
+            {{ form.confirmPassword.label }}<br>
+            {{ form.confirmPassword(size=32) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</div>
+{% endblock %}
