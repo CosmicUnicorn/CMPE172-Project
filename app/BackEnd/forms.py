@@ -1,8 +1,9 @@
 from flask import flash
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, ValidationError, StringField, TimeField, IntegerField, SelectField, BooleanField
+from wtforms import DateField, StringField, PasswordField, BooleanField, SubmitField, ValidationError, StringField, TimeField, IntegerField, SelectField, BooleanField
 from wtforms.validators import DataRequired, EqualTo, Email, NumberRange
 from wtforms.fields.html5 import EmailField
+from .model import User, DBConnector
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -10,7 +11,10 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
-#class StudentForm(FlaskForm):
+class StudentForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    enrollDate = DateField('Enrollment Date', validators=[DataRequired()])
+    submit = SubmitField('Create Student')
 
 #class EmployeeForm(FlaskForm):
 
@@ -28,11 +32,13 @@ class RegisterForm(FlaskForm):
     username = StringField("Username",validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired(),EqualTo('confirmPassword', message = "Passwords Don't Match!")])
     confirmPassword = PasswordField('Confirm Password', validators=[DataRequired()])
+    centerID = IntegerField("Center ID",validators=[DataRequired()])
     submit = SubmitField('Register Account')
 
-    #def validate_username(self, username):
-        #check if user already exists
-        #if user is not None:
-            #flash("Username is taken.")
-            #raise ValidationError('Username is taken.')
+    def validate_username(self, username):
+        connector = DBConnector()
+        user = connector.queryUser(username.data)
+        if user is not None:
+            flash("Username is taken.")
+            raise ValidationError('Username is taken.')
 

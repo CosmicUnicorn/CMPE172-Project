@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+ 
+{% block content %}
+
+{% if not get_flashed_messages() %}
+<div class="center Forms">
+{% else %}
+<div class="center FormsError">
+{% endif %}
+    <h1>Students</h1>
+
+    <button id="addButton" onclick="showForm()">Add Student</button>
+
+    <form action="" method="post" id="addStudentForm">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.name.label }}<br>
+            {{ form.name(size=32) }}
+        </p>
+        <p>
+            {{ form.enrollDate.label }}<br>
+            {{ form.enrollDate(size=32) }}
+        </p>
+        
+        <p>{{ form.submit() }}</p>
+        <button onclick="hideForm()">Cancel</button>
+    </form>
+</div>
+<script>
+    hideForm();
+    function showForm() {
+        var form = document.getElementById("addStudentForm");
+        var addButton = document.getElementById("addButton");
+        form.style.display = "block";
+        addButton.style.display = "none";
+    }
+
+    function hideForm() {
+        var form = document.getElementById("addStudentForm");
+        var addButton = document.getElementById("addButton");
+        form.style.display = "none";
+        addButton.style.display = "block";
+    }
+
+</script>
+{% endblock %}
