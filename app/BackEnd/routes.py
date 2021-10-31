@@ -8,7 +8,6 @@ from .student import Student
 @login_required
 @flaskApp.route("/",methods=['GET', 'POST'])
 def default():
-    flash("Success")
     logout_user()
     return redirect("/login")
     #if not current_user.is_authenticated:
@@ -20,7 +19,7 @@ def default():
 @flaskApp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect("/")
+        return redirect("/students")
     form = LoginForm()
     if form.validate_on_submit():
         
@@ -35,10 +34,15 @@ def login():
 
     return render_template('login.html', title='Login', form=form)
 
+@flaskApp.route('/logout', methods=['GET', 'POST'])
+def logout():
+    logout_user()
+    return redirect("/login")
+
 @flaskApp.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect("/")
+        return redirect("/students")
     form = RegisterForm()
     if form.validate_on_submit():
         connector = DBConnector()

@@ -10,7 +10,29 @@
       {% block head %} {% endblock %}
       
     </head>
-
+    <body>
+         <!-- LEFT SIDE OF NAVBAR -->
+         <table width=100%>
+            <tr>
+            <div>
+               {% if not current_user.is_authenticated %}
+               <th width=10%><a href="/">Home</a></th>
+               {% else %}
+               <th width=10%><a href="/home">Home</a></th>
+               <th width=10%><a href="/students">Students</a></th>
+               {% endif %}
+            </div>
+            <th></th>
+            <!-- RIGHT SIDE OF NAVBAR -->
+            <div style="display: flex; justify-content: flex-end">
+                  {% if not current_user.is_authenticated %}
+                  <th width=10%><a href="/login">Sign in</a></th>
+                  {% else %}
+                  <th width=10%><a href="/logout">Logout</a></th>
+                  {% endif %}
+            </div>
+            </tr>
+         </table>
     {% block content %}{% endblock %}
 
        {% with messages = get_flashed_messages() %}
