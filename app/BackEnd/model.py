@@ -3,6 +3,7 @@ from flask_login import UserMixin
 from __init__ import login
 from werkzeug.security import generate_password_hash, check_password_hash
 from .student import Student
+from .assignment import Assignment
 from datetime import date, datetime
 
 @login.user_loader
@@ -115,7 +116,7 @@ class DBConnector:
     def queryStudents(self):
         self.connectStudent()
         cur = self.conn.cursor()
-        cur.execute("select * from Students")
+        cur.execute("select * from Students;")
         rows = cur.fetchall()
         self.close()
         students = []
@@ -123,5 +124,32 @@ class DBConnector:
             student = Student(row[1],row[2],row[3])
             student.id = row[0]
             students.append(student)
-        print(students)
         return students
+
+    def queryAssignments(self, studentID):
+        self.connectStudent()
+        cur = self.conn.cursor()
+        cur.execute("select * from Assignments where studentID="+str(studentID)+";")
+        rows = cur.fetchall()
+        
+        assignments = []
+        for row in rows:
+            cur.execute("select title from Worksheets where id="+str(row[1])+";")
+            rows2 = cur.fetchall()
+            wkst = rows2[0]
+            assignment = Assignment(wkst[0],None,None,row[3],row[4],row[5])
+            assignment.id = row[0]
+            assignments.append(assignment)
+        self.close()
+        return assignments
+
+    def queryWorksheetTitles(self):
+        self.connectStudent()
+        cur = self.conn.cursor()
+        cur.execute("select id, title from Worksheets;")
+        rows = cur.fetchall()
+        self.close()
+        titles = []
+        for row in rows:
+            titles.append((row[0],row[1]))
+        return titles

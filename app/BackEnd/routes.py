@@ -1,9 +1,10 @@
 from flask import render_template, redirect, flash, request
 from __init__ import flaskApp, login
-from .forms import LoginForm, RegisterForm, StudentForm
+from .forms import LoginForm, RegisterForm, StudentForm, AssignmentForm
 from .model import User, DBConnector
 from flask_login import current_user, login_required, logout_user, login_user
 from .student import Student
+from .assignment import Assignment
 
 @login_required
 @flaskApp.route("/",methods=['GET', 'POST'])
@@ -72,4 +73,21 @@ def studentsPage():
 @login_required
 @flaskApp.route('/student/<id>', methods=['GET', 'POST'])
 def studentPage(id):
+    if not current_user.is_authenticated:
+        return redirect("/login")
+    connector = DBConnector()
+    form = AssignmentForm()
+    form.worksheet.choices = []
+    for wkSet in connector.queryWorksheetTitles():
+        form.worksheet.choices.append((wkSet[0], wkSet[1]))
+    assignmentsList = connector.queryAssignments(id)
+    if form.validate_on_submit():
+        assignment = Assignment(form.worksheet.data, None, None, form.dueDate.data, form.deliveredDate.data, form.score.data)
+        connector.insertAssignment(assignment)#implement
+        return redirect("/student/"+str(id))
+    return render_template('studentinfo.html', title='Student Info', assignments=assignmentsList, form=form)
+
+@login_required
+@flaskApp.route('/assignment/<id>', methods=['GET', 'POST'])
+def editAssignmentPage(id):
     pass

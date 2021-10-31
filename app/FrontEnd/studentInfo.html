@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+ 
+{% block content %}
+
+{% if not get_flashed_messages() %}
+<div class="center Forms">
+{% else %}
+<div class="center FormsError">
+{% endif %}
+    <h1>Assignments</h1>
+    <div>
+        <table>
+            <tr><th></th><th>Worksheet</th><th>Due Date</th><th>Delivered Date</th><th>Score</th></tr>
+            {% for assignment in assignments %}
+            <tr>
+            <td><a href="/assignment/{{ assignment.id }}">EDIT</a></td>
+            <td>{{ assignment.title }}</td><td>{{ assignment.due }}</td><td>{{ assignment.delivered }}</td><td>{{ assignment.score }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <button id="button" onclick="showForm()">Add Assignment</button>
+    <form action="" method="post" id="assignmentForm">
+        {{ form.hidden_tag() }}
+        <hr/>
+        <p>
+            {{ form.worksheet.label }}<br>
+            {{ form.worksheet }}
+        </p>
+        <p>
+            {{ form.dueDate.label }}<br>
+            {{ form.dueDate }}
+        </p>
+        <p>
+            {{ form.deliveredDate.label }}<br>
+            {{ form.deliveredDate }}
+        </p>
+        <p>
+            {{ form.score.label }}<br>
+            {{ form.score(size=16) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+        <button onclick="hideForm()">Cancel</button>
+    </form>
+</div>
+<script>
+    hideForm();
+    function showForm() {
+        var form = document.getElementById("assignmentForm");
+        var button = document.getElementById("button");
+        form.style.display = "block";
+        button.style.display = "none";
+    }
+
+    function hideForm() {
+        var form = document.getElementById("assignmentForm");
+        var button = document.getElementById("button");
+        form.style.display = "none";
+        button.style.display = "block";
+    }
+
+</script>
+{% endblock %}

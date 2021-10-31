@@ -16,9 +16,15 @@ class StudentForm(FlaskForm):
     enrollDate = DateField('Enrollment Date', validators=[DataRequired()],format="%Y-%m-%d")
     submit = SubmitField('Create Student')
 
-#class EmployeeForm(FlaskForm):
+class AssignmentForm(FlaskForm):
+    id = None
+    worksheet = SelectField('Worksheet', validators=[DataRequired()])
+    dueDate = DateField('Due Date', validators=[DataRequired()],format="%Y-%m-%d")
+    deliveredDate = DateField('Delivered Date',format="%Y-%m-%d")
+    score = IntegerField('Score')
+    submit = SubmitField('Confirm')
 
-#class AssignmentForm(FlaskForm):
+#class EmployeeForm(FlaskForm):
 
 #class WorksheetForm(FlaskForm):
 
