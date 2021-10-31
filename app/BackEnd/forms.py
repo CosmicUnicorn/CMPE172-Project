@@ -17,7 +17,6 @@ class StudentForm(FlaskForm):
     submit = SubmitField('Create Student')
 
 class AssignmentForm(FlaskForm):
-    id = None
     worksheet = SelectField('Worksheet', validators=[DataRequired()])
     dueDate = DateField('Due Date', validators=[DataRequired()],format="%Y-%m-%d")
     deliveredDate = DateField('Delivered Date',format="%Y-%m-%d")

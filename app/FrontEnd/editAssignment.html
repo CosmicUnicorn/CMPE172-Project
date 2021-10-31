@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+ 
+{% block content %}
+
+{% if not get_flashed_messages() %}
+<div class="center Forms">
+{% else %}
+<div class="center FormsError">
+{% endif %}
+    <h1>Edit Assignment</h1>
+    <form action="" method="post" id="assignmentForm">
+        {{ form.hidden_tag() }}
+        <hr/>
+        <p>
+            {{ form.worksheet.label }}<br>
+            {{ form.worksheet }}
+        </p>
+        <p>
+            {{ form.dueDate.label }}<br>
+            {{ form.dueDate }}
+        </p>
+        <p>
+            {{ form.deliveredDate.label }}<br>
+            {{ form.deliveredDate }}
+        </p>
+        <p>
+            {{ form.score.label }}<br>
+            {{ form.score(size=16) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+        <a href="javascript:history.back()">Cancel</a>
+    </form>
+</div>
+
+{% endblock %}

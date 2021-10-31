@@ -143,6 +143,21 @@ class DBConnector:
         self.close()
         return assignments
 
+    def queryAssignment(self, assignmentID):
+        self.connectStudent()
+        cur = self.conn.cursor()
+        cur.execute("select * from Assignments where id="+str(assignmentID)+";")
+        rows = cur.fetchall()
+        row = rows[0]
+        cur.execute("select title from Worksheets where id="+str(row[1])+";")
+        rows2 = cur.fetchall()
+        wkst = rows2[0]
+        self.close()
+        
+        assignment = Assignment(wkst[0],None,None,row[3],row[4],row[5])
+        assignment.id = row[0]
+        return assignment
+
     def queryWorksheetTitles(self):
         self.connectStudent()
         cur = self.conn.cursor()
@@ -153,3 +168,17 @@ class DBConnector:
         for row in rows:
             titles.append((row[0],row[1]))
         return titles
+
+    def insertAssignment(self, assignment, studentID):
+        self.connectStudent()
+        cur = self.conn.cursor()
+        cur.execute("insert into Assignments (worksheetID, studentID, dueDate, deliveredDate, grade) values ("+str(assignment.id)+","+str(studentID)+",'"+assignment.due.strftime("%Y-%m-%d")+"','"+assignment.delivered.strftime("%Y-%m-%d")+"',"+str(assignment.score)+");")
+        self.conn.commit()
+        self.close()
+
+    def updateAssignment(self, assignment, studentID, assignmentID):
+        self.connectStudent()
+        cur = self.conn.cursor()
+        cur.execute("update Assignments set worksheetID="+str(assignment.id)+", studentID="+str(studentID)+",dueDate='"+assignment.due.strftime("%Y-%m-%d")+"',deliveredDate='"+assignment.delivered.strftime("%Y-%m-%d")+"',grade="+str(assignment.score)+" where assignmentID="+str(assignmentID)+";")
+        self.conn.commit()
+        self.close()

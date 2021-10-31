@@ -13,7 +13,7 @@
             <tr><th></th><th>Worksheet</th><th>Due Date</th><th>Delivered Date</th><th>Score</th></tr>
             {% for assignment in assignments %}
             <tr>
-            <td><a href="/assignment/{{ assignment.id }}">EDIT</a></td>
+            <td><a href="/assignment/{{ studentID }}/{{ assignment.id }}">EDIT</a></td>
             <td>{{ assignment.title }}</td><td>{{ assignment.due }}</td><td>{{ assignment.delivered }}</td><td>{{ assignment.score }}</td>
             </tr>
             {% endfor %}

@@ -81,13 +81,35 @@ def studentPage(id):
     for wkSet in connector.queryWorksheetTitles():
         form.worksheet.choices.append((wkSet[0], wkSet[1]))
     assignmentsList = connector.queryAssignments(id)
-    if form.validate_on_submit():
-        assignment = Assignment(form.worksheet.data, None, None, form.dueDate.data, form.deliveredDate.data, form.score.data)
-        connector.insertAssignment(assignment)#implement
+    if form.is_submitted():
+        assignment = Assignment(None, None, None, form.dueDate.data, form.deliveredDate.data, form.score.data)
+        assignment.id = form.worksheet.data
+        connector.insertAssignment(assignment,id)
         return redirect("/student/"+str(id))
-    return render_template('studentinfo.html', title='Student Info', assignments=assignmentsList, form=form)
+    return render_template('studentinfo.html', title='Student Info', assignments=assignmentsList, studentID = id,form=form)
 
 @login_required
-@flaskApp.route('/assignment/<id>', methods=['GET', 'POST'])
-def editAssignmentPage(id):
-    pass
+@flaskApp.route('/assignment/<studentID>/<assignmentID>', methods=['GET', 'POST'])
+def editAssignmentPage(studentID,assignmentID):
+    if not current_user.is_authenticated:
+        return redirect("/login")
+    connector = DBConnector()
+    form = AssignmentForm()
+    form.worksheet.choices = []
+    oldAssignment = connector.queryAssignment(assignmentID)
+    for wkSet in connector.queryWorksheetTitles():
+        form.worksheet.choices.append((wkSet[0], wkSet[1]))
+        if wkSet[1] == oldAssignment.title:
+            form.worksheet.data = wkSet[0]
+    form.dueDate.data = oldAssignment.due
+    form.deliveredDate.data = oldAssignment.delivered
+    form.score.data = oldAssignment.score
+    
+    if form.is_submitted():
+        assignment = Assignment(None, None, None, form.dueDate.data, form.deliveredDate.data, form.score.data)
+        assignment.id = form.worksheet.data
+        connector.updateAssignment(assignment,studentID,assignmentID)
+        return redirect("/student/"+str(studentID))
+    return render_template('editAssignment.html', title='Edit Assignment', form=form)
+
+    
