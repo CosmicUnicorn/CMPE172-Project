@@ -8,11 +8,22 @@
 <div class="center FormsError">
 {% endif %}
     <h1>Students</h1>
+    <div>
+        <table>
+            <tr><th></th><th>ID</th><th>Name</th><th>Enrollment Date</th></tr>
+            {% for student in students %}
+            <tr>
+            <td><a href="/student/{{ student.id }}">VIEW</a></td>
+            <td>{{ student.id }}</td><td>{{ student.name }}</td><td>{{ student.enrollDate }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 
     <button id="addButton" onclick="showForm()">Add Student</button>
-
     <form action="" method="post" id="addStudentForm">
         {{ form.hidden_tag() }}
+        <hr/>
         <p>
             {{ form.name.label }}<br>
             {{ form.name(size=32) }}

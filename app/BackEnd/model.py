@@ -3,11 +3,12 @@ from flask_login import UserMixin
 from __init__ import login
 from werkzeug.security import generate_password_hash, check_password_hash
 from .student import Student
+from datetime import date, datetime
 
 @login.user_loader
-def load_user(id):
+def load_user(user_id):
     conn = DBConnector()
-    return conn.queryUserID(int(id))
+    return conn.queryUserID(int(user_id))
 
 class User(UserMixin):
     def __init__(self, id, username, password, centerID):
@@ -63,7 +64,7 @@ class DBConnector:
     def queryUser(self, username):
         self.connectAdmin()
         cur = self.conn.cursor()
-        cur.execute("select * from Users where username='"+str(username)+"'")
+        cur.execute("select * from Users where username='"+str(username)+"';")
         row = cur.fetchall()
         if(len(row) == 0):
             self.close()
@@ -76,7 +77,7 @@ class DBConnector:
     def queryUserID(self, id):
         self.connectAdmin()
         cur = self.conn.cursor()
-        cur.execute("select * from Users where id="+str(id))
+        cur.execute("select * from Users where id="+str(id)+";")
         row = cur.fetchall()
         if(len(row) == 0):
             self.close()
@@ -91,11 +92,11 @@ class DBConnector:
         user.set_password()
         self.connectAdmin()
         cur = self.conn.cursor()
-        cur.execute("select * from Users where centerID = "+str(centerID))
+        cur.execute("select * from Users where centerID = "+str(centerID)+";")
         row = cur.fetchall()
         if(len(row) == 0):
-            cur.execute("insert into TutorCenters (id) values ("+str(centerID)+")")
-        cur.execute("insert into Users (username, password, centerID) values ('"+str(user.username)+"','"+str(user.password_hash)+"',"+str(user.centerID)+")")
+            cur.execute("insert into TutorCenters (id) values ("+str(centerID)+");")
+        cur.execute("insert into Users (username, password, centerID) values ('"+str(user.username)+"','"+str(user.password_hash)+"',"+str(user.centerID)+");")
         self.conn.commit()
         self.close()
         user = self.queryUser(uName)
@@ -107,5 +108,20 @@ class DBConnector:
     def insertStudent(self, student):
         self.connectStudent()
         cur = self.conn.cursor()
-        cur.execute("insert into Students (name, enrollDate, centerID) values ('"+str(student.username)+"','"+str(student.password_hash)+"',"+str(student.centerID)+")")
+        cur.execute("insert into Students (name, enrollmentDate, centerID) values ('"+student.name+"','"+student.enrollDate.strftime("%Y-%m-%d")+"',"+str(student.centerID)+");")
+        self.conn.commit()
         self.close()
+
+    def queryStudents(self):
+        self.connectStudent()
+        cur = self.conn.cursor()
+        cur.execute("select * from Students")
+        rows = cur.fetchall()
+        self.close()
+        students = []
+        for row in rows:
+            student = Student(row[1],row[2],row[3])
+            student.id = row[0]
+            students.append(student)
+        print(students)
+        return students

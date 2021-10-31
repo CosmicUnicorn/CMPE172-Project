@@ -3,3 +3,4 @@ class Student:
         self.centerID = centerID
         self.name = name
         self.enrollDate = enrollDate
+        self.id = None

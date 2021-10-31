@@ -1,8 +1,8 @@
 from flask import flash
 from flask_wtf import FlaskForm
-from wtforms import DateField, StringField, PasswordField, BooleanField, SubmitField, ValidationError, StringField, TimeField, IntegerField, SelectField, BooleanField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, ValidationError, StringField, TimeField, IntegerField, SelectField, BooleanField
 from wtforms.validators import DataRequired, EqualTo, Email, NumberRange
-from wtforms.fields.html5 import EmailField
+from wtforms.fields.html5 import EmailField, DateField
 from .model import User, DBConnector
 
 class LoginForm(FlaskForm):
@@ -13,7 +13,7 @@ class LoginForm(FlaskForm):
 
 class StudentForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
-    enrollDate = DateField('Enrollment Date', validators=[DataRequired()])
+    enrollDate = DateField('Enrollment Date', validators=[DataRequired()],format="%Y-%m-%d")
     submit = SubmitField('Create Student')
 
 #class EmployeeForm(FlaskForm):

@@ -31,7 +31,7 @@ def login():
             flash('Invalid Username or Password')
             return redirect("login")
         login_user(user, remember=form.remember_me.data)
-        return redirect("/")
+        return redirect("/students")
 
     return render_template('login.html', title='Login', form=form)
 
@@ -54,9 +54,18 @@ def register():
 @login_required
 @flaskApp.route('/students', methods=['GET', 'POST'])
 def studentsPage():
+    if not current_user.is_authenticated:
+        return redirect("/login")
     form = StudentForm()
+    connector = DBConnector()
+    studentsList = connector.queryStudents()
     if form.validate_on_submit():
-        student = Student(form.name.data, form.enrollDate.data, current_user.centerID)
-        connector = DBConnector()
+        student = Student(name=form.name.data, enrollDate=form.enrollDate.data, centerID=current_user.centerID)
         connector.insertStudent(student)
-    return render_template('students.html', title='Students', form=form)
+        return redirect("/students")
+    return render_template('students.html', title='Students', students=studentsList, form=form)
+
+@login_required
+@flaskApp.route('/student/<id>', methods=['GET', 'POST'])
+def studentPage(id):
+    pass
