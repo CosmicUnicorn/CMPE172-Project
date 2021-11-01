@@ -95,21 +95,28 @@ def editAssignmentPage(studentID,assignmentID):
         return redirect("/login")
     connector = DBConnector()
     form = AssignmentForm()
+
     form.worksheet.choices = []
     oldAssignment = connector.queryAssignment(assignmentID)
     for wkSet in connector.queryWorksheetTitles():
         form.worksheet.choices.append((wkSet[0], wkSet[1]))
         if wkSet[1] == oldAssignment.title:
             form.worksheet.data = wkSet[0]
-    form.dueDate.data = oldAssignment.due
-    form.deliveredDate.data = oldAssignment.delivered
-    form.score.data = oldAssignment.score
     
     if form.is_submitted():
         assignment = Assignment(None, None, None, form.dueDate.data, form.deliveredDate.data, form.score.data)
         assignment.id = form.worksheet.data
         connector.updateAssignment(assignment,studentID,assignmentID)
         return redirect("/student/"+str(studentID))
+
+    form.dueDate.data = oldAssignment.due
+    form.deliveredDate.data = oldAssignment.delivered
+    if isinstance(oldAssignment.delivered, str):
+        form.deliveredDate.data = None
+    if isinstance(oldAssignment.due, str):
+        form.dueDate.data = None
+    form.score.data = oldAssignment.score
+
     return render_template('editAssignment.html', title='Edit Assignment', form=form)
 
     

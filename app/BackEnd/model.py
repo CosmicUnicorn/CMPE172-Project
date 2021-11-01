@@ -172,13 +172,35 @@ class DBConnector:
     def insertAssignment(self, assignment, studentID):
         self.connectStudent()
         cur = self.conn.cursor()
-        cur.execute("insert into Assignments (worksheetID, studentID, dueDate, deliveredDate, grade) values ("+str(assignment.id)+","+str(studentID)+",'"+assignment.due.strftime("%Y-%m-%d")+"','"+assignment.delivered.strftime("%Y-%m-%d")+"',"+str(assignment.score)+");")
+        delivered = "null"
+        due = "null"
+        if assignment.due != None:
+            due = assignment.due.strftime("%Y-%m-%d")
+        if assignment.delivered != None:
+            delivered = assignment.delivered.strftime("%Y-%m-%d")
+        if assignment.score == None:
+            assignment.score = "null"
+        cur.execute("insert into Assignments (worksheetID, studentID, dueDate, deliveredDate, grade) values ("+str(assignment.id)+","+str(studentID)+",'"+str(due)+"','"+str(delivered)+"',"+str(assignment.score)+");")
         self.conn.commit()
         self.close()
 
     def updateAssignment(self, assignment, studentID, assignmentID):
         self.connectStudent()
         cur = self.conn.cursor()
-        cur.execute("update Assignments set worksheetID="+str(assignment.id)+", studentID="+str(studentID)+",dueDate='"+assignment.due.strftime("%Y-%m-%d")+"',deliveredDate='"+assignment.delivered.strftime("%Y-%m-%d")+"',grade="+str(assignment.score)+" where assignmentID="+str(assignmentID)+";")
+        delivered = "null"
+        due = "null"
+        if assignment.due != None:
+            due = assignment.due.strftime("%Y-%m-%d")
+        if assignment.delivered != None:
+            delivered = assignment.delivered.strftime("%Y-%m-%d")
+        if assignment.score == None:
+            assignment.score = "null"
+        print(str(assignment.id))
+        print(str(studentID))
+        print(str(due))
+        print(str(delivered))
+        print(str(assignment.score))
+        print(str(assignmentID))
+        cur.execute("update Assignments set worksheetID="+str(assignment.id)+", studentID="+str(studentID)+",dueDate='"+str(due)+"',deliveredDate='"+str(delivered)+"',grade="+str(assignment.score)+" where id="+str(assignmentID)+";")
         self.conn.commit()
         self.close()
