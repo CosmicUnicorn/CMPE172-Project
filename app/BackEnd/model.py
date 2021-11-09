@@ -2,6 +2,8 @@ import pymysql
 from flask_login import UserMixin
 from __init__ import login
 from werkzeug.security import generate_password_hash, check_password_hash
+
+from .employee import Employee
 from .student import Student
 from .assignment import Assignment
 from datetime import date, datetime
@@ -59,6 +61,15 @@ class DBConnector:
             db='172StudentDB',
             )
     
+    def connectEmployee(self):
+        self.conn = pymysql.connect(
+            host='tutorial-db.cmimggwftooj.us-east-2.rds.amazonaws.com',
+            port=3306,
+            user='172user1', 
+            password = "user1pwd",
+            db='172EmployeeDB',
+            )
+
     def close(self):
         self.conn.close()
 
@@ -204,3 +215,30 @@ class DBConnector:
         cur.execute("update Assignments set worksheetID="+str(assignment.id)+", studentID="+str(studentID)+",dueDate='"+str(due)+"',deliveredDate='"+str(delivered)+"',grade="+str(assignment.score)+" where id="+str(assignmentID)+";")
         self.conn.commit()
         self.close()
+
+    def insertEmployee(self, employee):
+        self.connectEmployee()
+        cur = self.conn.cursor()
+        cur.execute("insert into Employees (name, jobTitle) values ('" + employee.name + "','" + employee.jobTitle + "');")
+        self.conn.commit()
+        self.close()
+
+    # def deleteEmployee(self, employee):
+    #     self.connectEmployee()
+    #     cur = self.conn.cursor()
+    #     cur.execute("delete from Employees (name, jobTitle) where 'name' = " + employee.name + " and 'jobTitle' = " + employee.jobTitle + "');")
+    #     self.conn.commit()
+    #     self.close()
+
+    def queryEmployees(self):
+        self.connectStudent()
+        cur = self.conn.cursor()
+        cur.execute("select * from Employees;")
+        rows = cur.fetchall()
+        self.close()
+        employees = []
+        for row in rows:
+            employee = Employee(row[0], row[1])
+            employees.append(employee)
+        return employees
+        

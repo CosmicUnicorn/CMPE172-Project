@@ -1,9 +1,10 @@
 from flask import render_template, redirect, flash, request
 from __init__ import flaskApp, login
-from .forms import LoginForm, RegisterForm, StudentForm, AssignmentForm
+from .forms import LoginForm, RegisterForm, StudentForm, AssignmentForm, EmployeeForm
 from .model import User, DBConnector
 from flask_login import current_user, login_required, logout_user, login_user
 from .student import Student
+from .employee import Employee
 from .assignment import Assignment
 
 @login_required
@@ -119,4 +120,22 @@ def editAssignmentPage(studentID,assignmentID):
 
     return render_template('editAssignment.html', title='Edit Assignment', form=form)
 
+@login_required
+@flaskApp.route('/employees', methods=['GET', 'POST'])
+def employeesPage():
+    if not current_user.is_authenticated:
+        return redirect("/login")
+    form = EmployeeForm
+    delEmp = EmployeeForm
+    connector = DBConnector()
+    employeesList = connector.queryEmployees()
+    if form.validate_on_submit():
+        employee = Employee(name=form.name.data, jobTitle=form.jobTitle.data)
+        connector.insertEmployee(employee)
+        return redirect("/employee")
+    # if delEmp.validate_on_submit():
+    #     employee = Employee(name=form.name.data, jobTitle=form.jobTitle.data)
+    #     connector.deleteEmployee(employee)
+    #     return redirect("/employee")
+    return render_template('employees.html', title='Employees', employees=employeesList, form=form, delEmp=delEmp)
     

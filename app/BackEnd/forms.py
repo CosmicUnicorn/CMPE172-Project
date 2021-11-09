@@ -23,7 +23,9 @@ class AssignmentForm(FlaskForm):
     score = IntegerField('Score')
     submit = SubmitField('Confirm')
 
-#class EmployeeForm(FlaskForm):
+class EmployeeForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    jobTitle = StringField('Job Title', validators=[DataRequired()])
 
 #class WorksheetForm(FlaskForm):
 
