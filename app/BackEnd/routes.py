@@ -10,13 +10,9 @@ from .assignment import Assignment
 @login_required
 @flaskApp.route("/",methods=['GET', 'POST'])
 def default():
-    logout_user()
+    if current_user.is_authenticated:
+        return redirect("/students")
     return redirect("/login")
-    #if not current_user.is_authenticated:
-        #return redirect("/home")
-    #user = current_user
-    #events = Event.query.filter_by(username=user.username).all()
-    #return render_template('index.html', title='Home',user = user, events = events)
 
 @flaskApp.route('/login', methods=['GET', 'POST'])
 def login():
