@@ -125,17 +125,22 @@ def editAssignmentPage(studentID,assignmentID):
 def employeesPage():
     if not current_user.is_authenticated:
         return redirect("/login")
-    form = EmployeeForm
-    delEmp = EmployeeForm
+    form = EmployeeForm()
     connector = DBConnector()
     employeesList = connector.queryEmployees()
     if form.validate_on_submit():
         employee = Employee(name=form.name.data, jobTitle=form.jobTitle.data)
         connector.insertEmployee(employee)
-        return redirect("/employee")
+        return redirect("/employees")
     # if delEmp.validate_on_submit():
     #     employee = Employee(name=form.name.data, jobTitle=form.jobTitle.data)
     #     connector.deleteEmployee(employee)
     #     return redirect("/employee")
-    return render_template('employees.html', title='Employees', employees=employeesList, form=form, delEmp=delEmp)
+    return render_template('employees.html', title='Employees', employees=employeesList, form=form)
+
+@login_required
+@flaskApp.route('/deleteEmployee/<id>', methods=['GET', 'POST'])
+def employeesPage(id):
+    #delete employee
+    pass
     

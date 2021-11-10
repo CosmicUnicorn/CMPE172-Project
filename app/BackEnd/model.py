@@ -60,15 +60,6 @@ class DBConnector:
             password = "user1pwd",
             db='172StudentDB',
             )
-    
-    def connectEmployee(self):
-        self.conn = pymysql.connect(
-            host='tutorial-db.cmimggwftooj.us-east-2.rds.amazonaws.com',
-            port=3306,
-            user='172user1', 
-            password = "user1pwd",
-            db='172EmployeeDB',
-            )
 
     def close(self):
         self.conn.close()
@@ -217,28 +208,29 @@ class DBConnector:
         self.close()
 
     def insertEmployee(self, employee):
-        self.connectEmployee()
+        self.connectAdmin()
         cur = self.conn.cursor()
         cur.execute("insert into Employees (name, jobTitle) values ('" + employee.name + "','" + employee.jobTitle + "');")
         self.conn.commit()
         self.close()
 
     # def deleteEmployee(self, employee):
-    #     self.connectEmployee()
+    #     self.connectAdmin()
     #     cur = self.conn.cursor()
     #     cur.execute("delete from Employees (name, jobTitle) where 'name' = " + employee.name + " and 'jobTitle' = " + employee.jobTitle + "');")
     #     self.conn.commit()
     #     self.close()
 
     def queryEmployees(self):
-        self.connectStudent()
+        self.connectAdmin()
         cur = self.conn.cursor()
         cur.execute("select * from Employees;")
         rows = cur.fetchall()
         self.close()
         employees = []
         for row in rows:
-            employee = Employee(row[0], row[1])
+            employee = Employee(row[1], row[2])
+            employee.id = row[0]
             employees.append(employee)
         return employees
         

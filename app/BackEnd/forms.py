@@ -26,6 +26,7 @@ class AssignmentForm(FlaskForm):
 class EmployeeForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     jobTitle = StringField('Job Title', validators=[DataRequired()])
+    submit = SubmitField('Add Employee')
 
 #class WorksheetForm(FlaskForm):
 
