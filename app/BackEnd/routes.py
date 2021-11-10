@@ -138,9 +138,9 @@ def employeesPage():
     #     return redirect("/employee")
     return render_template('employees.html', title='Employees', employees=employeesList, form=form)
 
-@login_required
-@flaskApp.route('/deleteEmployee/<id>', methods=['GET', 'POST'])
-def employeesPage(id):
+#@login_required
+#@flaskApp.route('/deleteEmployee/<id>', methods=['GET', 'POST'])
+#def employeesPage(id):
     #delete employee
-    pass
+    #pass
     

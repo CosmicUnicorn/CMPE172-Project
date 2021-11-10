@@ -10,7 +10,7 @@
     <h1>Employees</h1>
     <div>
         <table>
-            <tr><th>Name</th><th>Job Title</th></tr>
+            <tr><th></th><th>Name</th><th>Job Title</th></tr>
             {% for employee in employees %}
             <tr>
                 <td><a href="/deleteEmployee/{{ employee.id }}">Delete</a></td><td>{{ employee.name }}</td><td>{{ employee.jobTitle }}</td>
