@@ -35,7 +35,6 @@ class User(UserMixin):
         hashWord = 0
         for char in list(password):
             hashWord += ord(char)
-        print(password + ": "+str(hashWord))
         return str(hashWord)
 
 class DBConnector:
@@ -197,12 +196,6 @@ class DBConnector:
             delivered = assignment.delivered.strftime("%Y-%m-%d")
         if assignment.score == None:
             assignment.score = "null"
-        print(str(assignment.id))
-        print(str(studentID))
-        print(str(due))
-        print(str(delivered))
-        print(str(assignment.score))
-        print(str(assignmentID))
         cur.execute("update Assignments set worksheetID="+str(assignment.id)+", studentID="+str(studentID)+",dueDate='"+str(due)+"',deliveredDate='"+str(delivered)+"',grade="+str(assignment.score)+" where id="+str(assignmentID)+";")
         self.conn.commit()
         self.close()
