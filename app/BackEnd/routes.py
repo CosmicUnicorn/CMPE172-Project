@@ -128,15 +128,12 @@ def employeesPage():
         employee = Employee(name=form.name.data, jobTitle=form.jobTitle.data)
         connector.insertEmployee(employee)
         return redirect("/employees")
-    # if delEmp.validate_on_submit():
-    #     employee = Employee(name=form.name.data, jobTitle=form.jobTitle.data)
-    #     connector.deleteEmployee(employee)
-    #     return redirect("/employee")
     return render_template('employees.html', title='Employees', employees=employeesList, form=form)
 
-#@login_required
-#@flaskApp.route('/deleteEmployee/<id>', methods=['GET', 'POST'])
-#def employeesPage(id):
-    #delete employee
-    #pass
+@login_required
+@flaskApp.route('/deleteEmployee/<id>', methods=['GET', 'POST'])
+def employeesPage(id):
+    connector = DBConnector()
+    connector.deleteEmployee(id)
+    return redirect("/employees")
     

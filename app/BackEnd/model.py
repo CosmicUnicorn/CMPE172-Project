@@ -207,12 +207,12 @@ class DBConnector:
         self.conn.commit()
         self.close()
 
-    # def deleteEmployee(self, employee):
-    #     self.connectAdmin()
-    #     cur = self.conn.cursor()
-    #     cur.execute("delete from Employees (name, jobTitle) where 'name' = " + employee.name + " and 'jobTitle' = " + employee.jobTitle + "');")
-    #     self.conn.commit()
-    #     self.close()
+    def deleteEmployee(self, id):
+        self.connectAdmin()
+        cur = self.conn.cursor()
+        cur.execute("delete from Employees where 'id' = " + id + "');")
+        self.conn.commit()
+        self.close()
 
     def queryEmployees(self):
         self.connectAdmin()
@@ -223,7 +223,5 @@ class DBConnector:
         employees = []
         for row in rows:
             employee = Employee(row[1], row[2])
-            employee.id = row[0]
             employees.append(employee)
         return employees
-        
