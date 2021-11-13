@@ -94,7 +94,7 @@ class DBConnector:
         user.set_password()
         self.connectAdmin()
         cur = self.conn.cursor()
-        cur.execute("select * from Users where centerID = "+str(centerID)+";")
+        cur.execute("select * from TutorCenters where id = "+str(centerID)+";")
         row = cur.fetchall()
         if(len(row) == 0):
             cur.execute("insert into TutorCenters (id) values ("+str(centerID)+");")
