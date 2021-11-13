@@ -20,7 +20,7 @@
         </table>
     </div>
 
-    <button id="button" onclick="showForm()">Add Assignment</button>
+    <button id="addButton" onclick="showForm()">Add Assignment</button>
     <form action="" method="post" id="assignmentForm">
         {{ form.hidden_tag() }}
         <hr/>
@@ -48,14 +48,14 @@
     hideForm();
     function showForm() {
         var form = document.getElementById("assignmentForm");
-        var button = document.getElementById("button");
+        var button = document.getElementById("addButton");
         form.style.display = "block";
         button.style.display = "none";
     }
 
     function hideForm() {
         var form = document.getElementById("assignmentForm");
-        var button = document.getElementById("button");
+        var button = document.getElementById("addButton");
         form.style.display = "none";
         button.style.display = "block";
     }

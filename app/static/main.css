@@ -39,20 +39,20 @@ input[type="submit"]:active {
   background-color:#BF1D5A;
 }
 
-.Forms button {
+#addButton{
   background-color: #E71D36;
   border-radius: 8px;
-  margin-top: 20px 0 0 10px;
+  margin: 20px 0 0 10px;
   padding: 10px 20px;
   border: none;
   color: #F6F7EB;
 }
 
-.Forms button:hover {
+#addButton:hover {
   background-color:#D31D48;
 }
 
-.Forms button:active {
+#addButton:active {
   background-color:#BF1D5A;
 }
 .center {
