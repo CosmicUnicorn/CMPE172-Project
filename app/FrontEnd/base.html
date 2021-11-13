@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
 	  <meta charset="UTF-8">
+     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
        {% if title %}
        <title>{{ title }} - Tutor Manager</title>
        {% else %}
@@ -12,7 +13,7 @@
     </head>
     <body>
          <!-- LEFT SIDE OF NAVBAR -->
-         <table width=100%>
+         <table width=100% class="navbar">
             <tr>
             <div>
                {% if not current_user.is_authenticated %}
@@ -36,7 +37,7 @@
             </div>
             </tr>
          </table>
-         <hr/>
+
     {% block content %}{% endblock %}
 
        {% with messages = get_flashed_messages() %}

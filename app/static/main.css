@@ -1,0 +1,108 @@
+/* 
+  COLOR PALLETTE
+  Main     #F6F7EB  Hover  #E7EACA
+  Accent   #E71D36  Hover  #D31D48   Active  #BF1D5A
+  Tertiary #107E7D  Hover  #10737D   Active  #10687D
+  Main txt #333333
+ */
+body {
+  background: #F6F7EB;
+  font-family: Verdana, Geneva, sans-serif;
+  margin:0;
+  padding:0;
+}
+
+p {
+  font-size: 1em;
+  color: #333333;
+}
+
+h1 {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 2.5em;
+  color: #E71D36;
+}
+
+input[type="submit"] {
+  background-color: #E71D36;
+  border-radius: 8px;
+  padding: 10px 20px;
+  border: none;
+  color: #F6F7EB;
+}
+
+input[type="submit"]:hover {
+  background-color:#D31D48;
+}
+
+input[type="submit"]:active {
+  background-color:#BF1D5A;
+}
+
+.center {
+  margin-left: 1em;
+  }
+  
+.navbar {
+  background-color: #E71D36;
+  width: 100%;
+  height: 4em;
+}
+
+.navbar a {
+  color: #F6F7EB;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  text-decoration: none;
+  color: #E7EACA;
+}
+
+.Forms table {
+  border-collapse: collapse;
+  margin: auto;
+  margin-top: 50px;
+  font-family: sans-serif;
+  width: 95%;
+  min-width: 400px;
+}
+
+.Forms table th {
+  background-color: #E71D36;
+  color: #F6F7EB;
+  text-align: left;
+}
+
+.Forms table th:first-of-type {
+  border-top-left-radius: 12px;
+}
+
+.Forms table th:last-of-type {
+  border-top-right-radius: 12px;
+}
+
+.Forms table th,
+.Forms table td {
+  padding: 12px 15px;
+}
+
+.Forms tr {
+  border-bottom: thin solid #107E7D;
+}
+
+.Forms tr:nth-last-of-type(even) {
+  background-color: #E7EACA;
+}
+
+.Forms tr:last-of-type {
+  border-bottom: thin solid #10737D;
+}
+
+.Forms a {
+  text-decoration: none;
+}
+
+.Forms a:hover {
+  color: #107E7D
+}

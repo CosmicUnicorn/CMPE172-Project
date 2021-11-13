@@ -132,7 +132,7 @@ def employeesPage():
 
 @login_required
 @flaskApp.route('/deleteEmployee/<id>', methods=['GET', 'POST'])
-def employeesPage(id):
+def deleteEmployeesPage(id):
     connector = DBConnector()
     connector.deleteEmployee(id)
     return redirect("/employees")
