@@ -39,6 +39,22 @@ input[type="submit"]:active {
   background-color:#BF1D5A;
 }
 
+.Forms button {
+  background-color: #E71D36;
+  border-radius: 8px;
+  margin-top: 20px 0 0 10px;
+  padding: 10px 20px;
+  border: none;
+  color: #F6F7EB;
+}
+
+.Forms button:hover {
+  background-color:#D31D48;
+}
+
+.Forms button:active {
+  background-color:#BF1D5A;
+}
 .center {
   margin-left: 1em;
   }
