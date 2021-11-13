@@ -30,11 +30,7 @@ class EmployeeForm(FlaskForm):
 
 #class WorksheetForm(FlaskForm):
 
-#class AttendanceForm(FlaskForm):
-
 #class SubjectForm(FlaskForm):
-
-#class ParentForm(FlaskForm):
 
 class RegisterForm(FlaskForm):
     username = StringField("Username",validators=[DataRequired()])
