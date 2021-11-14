@@ -210,7 +210,7 @@ class DBConnector:
     def deleteEmployee(self, id):
         self.connectAdmin()
         cur = self.conn.cursor()
-        cur.execute("delete from Employees where 'id' = " + id + "');")
+        cur.execute("delete from Employees where id = " + id + ";")
         self.conn.commit()
         self.close()
 
@@ -223,5 +223,6 @@ class DBConnector:
         employees = []
         for row in rows:
             employee = Employee(row[1], row[2])
+            employee.id = row[0]
             employees.append(employee)
         return employees
