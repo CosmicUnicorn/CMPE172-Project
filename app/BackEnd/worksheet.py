@@ -3,3 +3,4 @@ class Worksheet:
         self.title = title
         self.difficulty = difficulty
         self.subject = subject
+        self.id = None

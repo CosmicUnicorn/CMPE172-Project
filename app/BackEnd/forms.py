@@ -28,7 +28,11 @@ class EmployeeForm(FlaskForm):
     jobTitle = StringField('Job Title', validators=[DataRequired()])
     submit = SubmitField('Add Employee')
 
-#class WorksheetForm(FlaskForm):
+class WorksheetForm(FlaskForm):
+    subject = SelectField('Subject')
+    title = StringField('Title', validators=[DataRequired()])
+    difficulty = SelectField('Difficulty', choices=[('1A', '1A'), ('2A', '2A'), ('3A', '3A'),('1B', '1B'), ('2B', '2B'), ('3B', '3B')])
+    submit = SubmitField('Confirm')
 
 #class SubjectForm(FlaskForm):
 

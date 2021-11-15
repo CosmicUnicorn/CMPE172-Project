@@ -1,11 +1,12 @@
 from flask import render_template, redirect, flash, request
 from __init__ import flaskApp, login
-from .forms import LoginForm, RegisterForm, StudentForm, AssignmentForm, EmployeeForm
+from .forms import LoginForm, WorksheetForm, RegisterForm, StudentForm, AssignmentForm, EmployeeForm
 from .model import User, DBConnector
 from flask_login import current_user, login_required, logout_user, login_user
 from .student import Student
 from .employee import Employee
 from .assignment import Assignment
+from .worksheet import Worksheet
 
 @login_required
 @flaskApp.route("/",methods=['GET', 'POST'])
@@ -136,4 +137,22 @@ def deleteEmployeesPage(id):
     connector = DBConnector()
     connector.deleteEmployee(id)
     return redirect("/employees")
-    
+
+@login_required
+@flaskApp.route('/worksheets', methods=['GET', 'POST'])
+def worksheetsPage():
+    if not current_user.is_authenticated:
+        return redirect("/login")
+    form = WorksheetForm()
+    connector = DBConnector()
+    form.subject.choices = []
+    for subjectSet in connector.querySubjectTitles():
+        form.subject.choices.append((subjectSet[0], subjectSet[1]))
+
+    worksheetList = connector.queryWorksheets()
+    if form.is_submitted():
+        worksheet = Worksheet(title=form.title.data, difficulty=form.difficulty.data, subject=form.subject.data)
+        
+        connector.insertWorksheet(worksheet)
+        return redirect("/worksheets")
+    return render_template('worksheets.html', title='Worksheets', worksheets=worksheetList, form=form)

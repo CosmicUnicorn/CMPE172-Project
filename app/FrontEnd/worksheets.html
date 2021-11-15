@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+ 
+{% block content %}
+
+{% if not get_flashed_messages() %}
+<div class="center Forms">
+{% else %}
+<div class="center FormsError">
+{% endif %}
+    <h1>Worksheets</h1>
+    <div>
+        <table>
+            <tr><th>ID</th><th>Title</th><th>Difficulty</th><th>Subject ID</th></tr>
+            {% for wkst in worksheets %}
+            <tr>
+                <td>{{ wkst.id }}</td><td>{{ wkst.title }}</td><td>{{ wkst.difficulty }}</td><td>{{ wkst.subject }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <button id="addButton" onclick="showForm()">Add Worksheet</button>
+    <form action="" method="post" id="worksheetForm">
+        {{ form.hidden_tag() }}
+        <hr/>
+        <p>
+            {{ form.subject.label }}<br>
+            {{ form.subject }}
+        </p>
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title(size=26) }}
+        </p>
+        <p>
+            {{ form.difficulty.label }}<br>
+            {{ form.difficulty }}
+        </p>
+        <p>{{ form.submit() }}</p>
+        <button onclick="hideForm()">Cancel</button>
+    </form>
+</div>
+<script>
+    hideForm();
+    function showForm() {
+        var form = document.getElementById("worksheetForm");
+        var button = document.getElementById("addButton");
+        form.style.display = "block";
+        button.style.display = "none";
+    }
+
+    function hideForm() {
+        var form = document.getElementById("worksheetForm");
+        var button = document.getElementById("addButton");
+        form.style.display = "none";
+        button.style.display = "block";
+    }
+
+</script>
+{% endblock %}

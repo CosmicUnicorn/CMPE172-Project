@@ -6,6 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from .employee import Employee
 from .student import Student
 from .assignment import Assignment
+from .worksheet import Worksheet
 from datetime import date, datetime
 
 @login.user_loader
@@ -226,3 +227,34 @@ class DBConnector:
             employee.id = row[0]
             employees.append(employee)
         return employees
+
+    def queryWorksheets(self):
+        self.connectStudent()
+        cur = self.conn.cursor()
+        cur.execute("select * from Worksheets;")
+        rows = cur.fetchall()
+        self.close()
+        worksheets = []
+        for row in rows:
+            worksheet = Worksheet(row[1], row[2], row[3])
+            worksheet.id = row[0]
+            worksheets.append(worksheet)
+        return worksheets
+
+    def insertWorksheet(self, worksheet):
+        self.connectStudent()
+        cur = self.conn.cursor()
+        cur.execute("insert into Worksheets (title, difficultyRating, subjectID) values ('" + worksheet.title + "','" + worksheet.difficulty + "'," + worksheet.subject + ");")
+        self.conn.commit()
+        self.close()
+
+    def querySubjectTitles(self):
+        self.connectAdmin()
+        cur = self.conn.cursor()
+        cur.execute("select * from Subjects;")
+        rows = cur.fetchall()
+        self.close()
+        titles = []
+        for row in rows:
+            titles.append((row[0],row[1]))
+        return titles
