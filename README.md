@@ -12,7 +12,7 @@
     - [Authors](#authors)
     - [Introduction](#introduction)
     - [Architecture](#architecture)
- - [Sample Demo Screenshots](#screenshots)
+ - [Demo](#demo)
  - [Instructions](#instructions)
 
 ## About
@@ -38,6 +38,8 @@ This solution takes advantage of three-tier architecture to maintain scalability
 | Business     | Python, [Flask](https://flask.palletsprojects.com/en/2.0.x/) |
 | Data         | MySQL on [Amazon RDS](https://aws.amazon.com/rds/mysql/) |
 
+<details><summary>Show architecture diagrams</summary>
+    
 | |
 | :--: |
 | ![System Diagram](https://user-images.githubusercontent.com/54559120/142005164-eb7cfe0c-d628-491f-ba47-f0b54b74eb30.png) |
@@ -48,12 +50,16 @@ This solution takes advantage of three-tier architecture to maintain scalability
 | ![Sequence Diagram (Add worksheet)](https://user-images.githubusercontent.com/54559120/142005447-5983c7a1-7d81-4d84-b0cb-dce2a5a7be9f.png) |
 | Sequence Diagram of adding a worksheet |
 | |
-|![Student Database](https://user-images.githubusercontent.com/54559120/142006992-b7909982-ed48-4439-88dd-beb6d2e8aa91.png) |
+| ![Student Database](https://user-images.githubusercontent.com/54559120/142006992-b7909982-ed48-4439-88dd-beb6d2e8aa91.png) |
 | ![Administration Database](https://user-images.githubusercontent.com/54559120/142006826-56a98c50-c307-4366-9160-3889e4fa22bd.png) |
+| Federated database structure |
+</details>
 
+## Demo
 <!-- Include demo video.mp4 here -->
 
-## Screenshots
+<details><summary>Show screenshots</summary>
+    
 ![Sign In](https://user-images.githubusercontent.com/54559120/141994220-245b85b6-8fd8-40f5-ae7a-74516e975f51.png)
 
 ![Students + AddForm](https://user-images.githubusercontent.com/54559120/141995345-bde9fc77-c2c9-4d17-af92-b77436d1b562.png)
@@ -67,6 +73,7 @@ This solution takes advantage of three-tier architecture to maintain scalability
 ![Worksheets](https://user-images.githubusercontent.com/54559120/141997818-83bbdf2d-88cb-4e7d-b9b3-fc36d7de7c39.png)
 
 ![Worksheets + AddForm](https://user-images.githubusercontent.com/54559120/141998422-7e2c634b-2ec9-495d-9f27-30ffea0e11e2.png)
+</details>
 
 ## Instructions
 ### Local server
@@ -100,19 +107,19 @@ This solution takes advantage of three-tier architecture to maintain scalability
     ```
 - Run image
     - In a new container
-    ```bash
-    docker run -[detached mode] -[publish flag] [host port]:[container port] --[name] [custom container name] [image name]
-    ```
-    ```bash
-    docker run -d -p 5000:5000 --name CMPE172Container cmpe172project
-    ```
+        ```bash
+        docker run -[detached mode] -[publish flag] [host port]:[container port] --[name] [custom container name] [image name]
+        ```
+        ```bash
+        docker run -d -p 5000:5000 --name CMPE172Container cmpe172project
+        ```
     - In already existing container
-    ```bash
-    docker start [container name]
-    ```
-    ```bash
-    docker start CMPE172Container
-    ```
+        ```bash
+        docker start [container name]
+        ```
+        ```bash
+        docker start CMPE172Container
+        ```
 - Stop image
      ```bash
     docker stop [container name]
