@@ -89,12 +89,15 @@ def studentPage(id):
         avgScore = "No Average Score"
     else:
         avgScore = sum/count
+
+    rank = connector.queryRank(id)
+
     if form.is_submitted():
         assignment = Assignment(None, None, None, form.dueDate.data, form.deliveredDate.data, form.score.data)
         assignment.id = form.worksheet.data
         connector.insertAssignment(assignment,id)
         return redirect("/student/"+str(id))
-    return render_template('studentInfo.html', title='Student Info', assignments=assignmentsList, studentID = id,form=form, avgScore = avgScore)
+    return render_template('studentInfo.html', title='Student Info', assignments=assignmentsList, studentID = id,form=form, avgScore = avgScore, rank = rank)
 
 @login_required
 @flaskApp.route('/assignment/<studentID>/<assignmentID>', methods=['GET', 'POST'])

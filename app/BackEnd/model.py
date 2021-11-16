@@ -258,3 +258,16 @@ class DBConnector:
         for row in rows:
             titles.append((row[0],row[1]))
         return titles
+
+    def queryRank(self, id):
+        self.connectStudent()
+        cur = self.conn.cursor()
+        cur.execute("Select Students.id, avg(grade) from Students, Assignments where Assignments.studentID = Students.id group by Students.id order by avg(grade) desc;")
+        rows = cur.fetchall()
+        self.close()
+        row_numb = 0
+        for row in rows:
+            row_numb +=1
+            if id = row[0]:
+                return row_numb
+        return row_numb
