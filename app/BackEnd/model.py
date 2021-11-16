@@ -152,8 +152,6 @@ class DBConnector:
             assignment = Assignment(wkst[0],None,None,row[3],row[4],row[5])
             if(assignment.delivered=="0000-00-00"):
                 assignment.delivered=None
-            if(assignment.due=="0000-00-00"):
-                assignment.due=None
             assignment.id = row[0]
             assignments.append(assignment)
         self.close()
