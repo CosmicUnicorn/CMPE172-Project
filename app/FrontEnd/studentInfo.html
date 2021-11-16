@@ -7,10 +7,10 @@
 {% else %}
 <div class="center FormsError">
 {% endif %}
-    <h1>Assignments</h1>
+    <h1>{{ name }}'s Assignments</h1>
     <div>
-        <p>Average Score: {{ avgScore }}</p>
-        <p>Rank: {{ rank }}</p>
+        <h2>Average Score: {{ avgScore }}</h2>
+        <h2>Rank: {{ rank }}</h2>
         <table>
             <tr><th></th><th>Worksheet</th><th>Due Date</th><th>Delivered Date</th><th>Score</th></tr>
             {% for assignment in assignments %}

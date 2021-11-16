@@ -128,6 +128,16 @@ class DBConnector:
             students.append(student)
         return students
 
+    def queryStudent(self, id):
+        self.connectStudent()
+        cur = self.conn.cursor()
+        cur.execute("select * from Students where id=" + str(id) + ";")
+        row = cur.fetchone()
+        self.close()
+        student = Student(row[1],row[2],row[3])
+        student.id = row[0]
+        return student
+
     def queryAssignments(self, studentID):
         self.connectStudent()
         cur = self.conn.cursor()

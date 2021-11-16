@@ -25,6 +25,13 @@ h1 {
   margin-left: 5%;
 }
 
+h2 {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 1.5em;
+  color: #107E7D;
+  margin-left: 5%;
+}
+
 label {
   margin: 20px 0 0 5%;
 }
@@ -129,7 +136,7 @@ select:active {
 .Forms table {
   border-collapse: collapse;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 20px;
   font-family: sans-serif;
   width: 90%;
   min-width: 400px;
