@@ -8,23 +8,24 @@
 <div class="center FormsError">
 {% endif %}
     <h1>Sign In</h1>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}
-        </p>
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+    <div>
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
 
-        <p> Dont have an account? 
-            <a id="registerLink" href = "/register"> Register Here!</a>
-        </p>
-        
-        <p>{{ form.submit() }}</p>
-    </form>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}<br>
+
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}<br>
+            
+            <span style="margin-left: 5%;">{{ form.remember_me() }}</span> <span class="remember">{{ form.remember_me.label }}</span><br>
+            
+            <p style="margin: 10px 0 10px 5%;"> Dont have an account? 
+                <a id="registerLink" href = "/register"> Register Here!</a>
+            </p>
+            
+            <p>{{ form.submit() }}</p>
+        </form>
+    </div>
 </div>
 {% endblock %}

@@ -10,24 +10,21 @@
     <h1>Edit Assignment</h1>
     <form action="" method="post" id="assignmentForm">
         {{ form.hidden_tag() }}
-        <p>
-            {{ form.worksheet.label }}<br>
-            {{ form.worksheet }}
-        </p>
-        <p>
-            {{ form.dueDate.label }}<br>
-            {{ form.dueDate }}
-        </p>
-        <p>
-            {{ form.deliveredDate.label }}<br>
-            {{ form.deliveredDate }}
-        </p>
-        <p>
-            {{ form.score.label }}<br>
-            {{ form.score(size=16) }}
-        </p>
-        <p>{{ form.submit() }}</p>
-        <a href="javascript:history.back()">Cancel</a>
+
+        {{ form.worksheet.label }}<br>
+        {{ form.worksheet }}<br>
+
+        {{ form.dueDate.label }}<br>
+        {{ form.dueDate }}<br>
+
+        {{ form.deliveredDate.label }}<br>
+        {{ form.deliveredDate }}<br>
+
+        {{ form.score.label }}<br>
+        {{ form.score(size=16) }}<br>
+
+        {{ form.submit() }}<br>
+        <button id="submit" href="javascript:history.back()">Cancel</button>
     </form>
 </div>
 

@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
 	  <meta charset="UTF-8">
+     <link rel="icon" href="../static/BookIcon_64x64.png">
      <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
        {% if title %}
        <title>{{ title }} - Tutor Manager</title>
@@ -12,31 +13,28 @@
       
     </head>
     <body>
-         <!-- LEFT SIDE OF NAVBAR -->
-         <table width=100% class="navbar">
-            <tr>
-            <div>
+         <div width=100% class="navbar">
+            <!-- LEFT SIDE OF NAVBAR -->
+            <div class="navbar-left">
                {% if not current_user.is_authenticated %}
-               <th width=10%><a href="/">Home</a></th>
+               <a href="/">Home</a>
                {% else %}
-               <th width=10%><a href="/">Home</a></th>
-               <th width=10%><a href="/students">Students</a></th>
-               <th width=10%><a href="/employees">Employees</a></th>
-               <!--<th width=10%><a href="/analytics">Analytics</a></th>-->
-               <th width=10%><a href="/worksheets">Worksheets</a></th>
+               <a href="/">Home</a>
+               <a href="/students">Students</a>
+               <a href="/employees">Employees</a>
+               <!--<a href="/analytics">Analytics</a>-->
+               <a href="/worksheets">Worksheets</a>
                {% endif %}
             </div>
-            <th></th>
             <!-- RIGHT SIDE OF NAVBAR -->
-            <div style="display: flex; justify-content: flex-end">
+            <div class="navbar-right">
                   {% if not current_user.is_authenticated %}
-                  <th width=10%><a href="/login">Sign in</a></th>
+                  <a href="/login">Sign in</a>
                   {% else %}
-                  <th width=10%><a href="/logout">Logout</a></th>
+                  <a href="/logout">Logout</a>
                   {% endif %}
             </div>
-            </tr>
-         </table>
+         </div>
 
     {% block content %}{% endblock %}
 
