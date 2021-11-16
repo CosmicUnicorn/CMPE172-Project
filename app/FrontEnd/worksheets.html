@@ -17,40 +17,37 @@
             </tr>
             {% endfor %}
         </table>
-    </div>
-
-    <button id="addButton" onclick="showForm()">Add Worksheet</button>
-    <form action="" method="post" id="worksheetForm">
-        {{ form.hidden_tag() }}
-        <hr/>
-        <p>
+        
+        <button id="Button" onclick="showForm()">Add Worksheet</button>
+        <form action="" method="post" id="worksheetForm">
+            {{ form.hidden_tag() }}
+        
             {{ form.subject.label }}<br>
-            {{ form.subject }}
-        </p>
-        <p>
+            {{ form.subject }}<br>
+
             {{ form.title.label }}<br>
-            {{ form.title(size=26) }}
-        </p>
-        <p>
+            {{ form.title(size=26) }}<br>
+
             {{ form.difficulty.label }}<br>
-            {{ form.difficulty }}
-        </p>
-        <p>{{ form.submit() }}</p>
-        <button onclick="hideForm()">Cancel</button>
-    </form>
+            {{ form.difficulty }}<br>
+
+            {{ form.submit() }}<br>
+            <button onclick="hideForm()">Cancel</button>
+        </form>
+    </div>
 </div>
 <script>
     hideForm();
     function showForm() {
         var form = document.getElementById("worksheetForm");
-        var button = document.getElementById("addButton");
+        var button = document.getElementById("Button");
         form.style.display = "block";
         button.style.display = "none";
     }
 
     function hideForm() {
         var form = document.getElementById("worksheetForm");
-        var button = document.getElementById("addButton");
+        var button = document.getElementById("Button");
         form.style.display = "none";
         button.style.display = "block";
     }
