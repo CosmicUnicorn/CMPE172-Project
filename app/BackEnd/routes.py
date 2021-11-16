@@ -84,7 +84,7 @@ def studentPage(id):
         assignment.id = form.worksheet.data
         connector.insertAssignment(assignment,id)
         return redirect("/student/"+str(id))
-    return render_template('studentinfo.html', title='Student Info', assignments=assignmentsList, studentID = id,form=form)
+    return render_template('studentInfo.html', title='Student Info', assignments=assignmentsList, studentID = id,form=form)
 
 @login_required
 @flaskApp.route('/assignment/<studentID>/<assignmentID>', methods=['GET', 'POST'])
