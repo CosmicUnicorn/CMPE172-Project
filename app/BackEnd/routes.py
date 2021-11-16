@@ -79,12 +79,23 @@ def studentPage(id):
     for wkSet in connector.queryWorksheetTitles():
         form.worksheet.choices.append((wkSet[0], wkSet[1]))
     assignmentsList = connector.queryAssignments(id)
+
+    count = 0
+    sum = 0
+    for (assignment in assignmentsList):
+        if(assignment.score  != None):
+            sum += assigment.score
+            count += 1
+        
+    avg_score = sum / count
+
+
     if form.is_submitted():
         assignment = Assignment(None, None, None, form.dueDate.data, form.deliveredDate.data, form.score.data)
         assignment.id = form.worksheet.data
         connector.insertAssignment(assignment,id)
         return redirect("/student/"+str(id))
-    return render_template('studentinfo.html', title='Student Info', assignments=assignmentsList, studentID = id,form=form)
+    return render_template('studentinfo.html', title='Student Info', assignments=assignmentsList, studentID = id,form=form, avg_score = avg_score)
 
 @login_required
 @flaskApp.route('/assignment/<studentID>/<assignmentID>', methods=['GET', 'POST'])

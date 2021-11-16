@@ -9,6 +9,7 @@
 {% endif %}
     <h1>Assignments</h1>
     <div>
+        <p>Average Score: {{ avg_score }}</p>
         <table>
             <tr><th></th><th>Worksheet</th><th>Due Date</th><th>Delivered Date</th><th>Score</th></tr>
             {% for assignment in assignments %}

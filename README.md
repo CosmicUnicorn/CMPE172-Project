@@ -22,6 +22,7 @@
 - Team Members
     - [James Taylor](https://github.com/CosmicUnicorn)
     - [Raymond Chin](https://github.com/RC-OTOLI)
+    - [Dhananjay Pahuja](https://github.com/dhananjaypahuja)
 
 ### Introduction
 [Tutor Manager](tutormanager.us-east-1.elasticbeanstalk.com) is a scalable solution for recording, analyzing, and manipulating data about employment and student records across several establishments. It takes minutes to set up, and seconds to customize for your own useage. 
