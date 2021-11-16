@@ -268,6 +268,6 @@ class DBConnector:
         row_numb = 0
         for row in rows:
             row_numb +=1
-            if id = row[0]:
+            if id == row[0]:
                 return row_numb
-        return row_numb
+        return "Unranked"

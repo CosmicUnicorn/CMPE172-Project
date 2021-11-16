@@ -89,9 +89,7 @@ def studentPage(id):
         avgScore = "No Average Score"
     else:
         avgScore = sum/count
-
-    rank = connector.queryRank(id)
-
+    rank = connector.queryRank(int(id))
     if form.is_submitted():
         assignment = Assignment(None, None, None, form.dueDate.data, form.deliveredDate.data, form.score.data)
         assignment.id = form.worksheet.data
