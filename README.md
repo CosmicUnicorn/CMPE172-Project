@@ -1,9 +1,12 @@
 <a href="https://tutormanager.us-east-1.elasticbeanstalk.com">
-    <image src="app/static/BookIcon_128x128.png" alt="Book Logo" align="right" height="64" />
+    <image src="app/static/BookIcon_128x128.png" alt="Book Logo" align="left" height="64" />
 </a>
-<a href="https://www.sjsu.edu/"> 
+<!-- <a href="https://www.sjsu.edu/"> 
+	<image src="https://user-images.githubusercontent.com/54559120/142389126-c6ca1be9-62ae-4e6f-9fa2-9af7ecf8de83.png" align="right" height="64" />
     <image src="app/static/SJSU_Spartan_128x128.png" alt="SJSU Spartan" align="right" height="64" />
-</a>
+</a> -->
+<!-- ![image](https://user-images.githubusercontent.com/54559120/142392116-6a9340c4-061d-42e8-836f-840e7ba685d2.png) -->
+
 
 # Tutor Manager 
 
@@ -34,12 +37,13 @@ Add new administrators as needed to oversee the database.
 This solution takes advantage of three-tier architecture to maintain scalability and relative independence of each tier. The data tier in particular is employs data federation between student and administration data, shared schemas for simpler batch querying, and read replicas.
 ### Architecture
 | **Tier**     |                       |
-| :----------: | :-------------------: |
+| :----------: | :------------------- |
 | Presentation | HTML, CSS, JavaScript |
 | Business     | Python, [Flask](https://flask.palletsprojects.com/en/2.0.x/) |
 | Data         | MySQL on [Amazon RDS](https://aws.amazon.com/rds/mysql/) |
 
-<details><summary>Show architecture diagrams</summary>
+<details>
+    <summary>Show architecture diagrams</summary>
     
 | |
 | :--: |
@@ -57,9 +61,10 @@ This solution takes advantage of three-tier architecture to maintain scalability
 </details>
 
 ## Demo
-<!-- Include demo video.mp4 here -->
+https://user-images.githubusercontent.com/54559120/142375792-80f5ab74-8ebd-4a9a-99d5-ad564a2f2459.mp4
 
-<details><summary>Show screenshots</summary>
+<details>
+    <summary>Show screenshots</summary>
     
 ![Sign In](https://user-images.githubusercontent.com/54559120/141994220-245b85b6-8fd8-40f5-ae7a-74516e975f51.png)
 
@@ -71,13 +76,13 @@ This solution takes advantage of three-tier architecture to maintain scalability
 
 ![Employees](https://user-images.githubusercontent.com/54559120/141997437-02b3238f-5906-4470-9fb8-aafd8ae63388.png)
 
-![Worksheets](https://user-images.githubusercontent.com/54559120/141997818-83bbdf2d-88cb-4e7d-b9b3-fc36d7de7c39.png)
-
 ![Worksheets + AddForm](https://user-images.githubusercontent.com/54559120/141998422-7e2c634b-2ec9-495d-9f27-30ffea0e11e2.png)
 </details>
 
 ## Instructions
-### Local server
+### Local server 
+<details open>
+
 - Get a python 3 or later environment on your machine
 - Clone the repo into a directory of your choice
 - Build in virtual environment (optional)
@@ -100,31 +105,34 @@ This solution takes advantage of three-tier architecture to maintain scalability
     python .\app\run.py
     ```
 - Stop server (Ctrl + c in terminal)
-
+</details>
+    
 ### Docker container service
-- Create local image in Docker
-    ```bash
-     docker build github.com/CosmicUnicorn/CMPE172-Project
-    ```
+<details open>
+
+- Create local image in Docker\
+    ```docker build github.com/CosmicUnicorn/CMPE172-Project``` will build a local image using this repository.\
+    Building a docker image in this manner may create an intermediary image with the repository name and tags set to "None"
+- Tag image\
+    ```docker image ls -a``` to find the Image ID \
+    ```docker tag [image id] [new name]``` to name the image appropriately\
 - Run image
-    - In a new container
-        ```bash
-        docker run -[detached mode] -[publish flag] [host port]:[container port] --[name] [custom container name] [image name]
-        ```
-        ```bash
-        docker run -d -p 5000:5000 --name CMPE172Container cmpe172project
-        ```
-    - In already existing container
-        ```bash
-        docker start [container name]
-        ```
-        ```bash
-        docker start CMPE172Container
-        ```
-- Stop image
-     ```bash
-    docker stop [container name]
-    ```
-    ```bash
-    docker stop CMPE172Container
-    ```
+    - In a new container\
+        ```docker run -dp [host port]:[container port] --name [container name] [image name]```\
+        Note: the dockerfile exposes Docker's port 5000, so all docker run commands must use ```[host port]:5000```
+    - In already existing container\
+        ```docker start [container name]```
+- Stop image\
+     ```docker stop [container name]```
+
+Example:
+```bash
+docker build github.com/CosmicUnicorn/CMPE172-Project
+docker tag 9c13f cmpe172project
+docker run -dp 5000:5000 --name CMPE172Container cmpe172project
+docker stop CMPE172Container
+```
+</details>
+
+After either method, a local copy of the project will be accessable by visiting localhost:5000\
+If you exposed a host port other than 5000 using docker deployment, then you can see the project at localhost:[host port]
